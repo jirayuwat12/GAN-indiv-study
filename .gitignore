@@ -159,6 +159,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-/My_first_GANs_model/data
+/My_first_GANs_model/dataset
 
 AU-GAN/
