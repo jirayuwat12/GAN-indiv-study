@@ -16,9 +16,11 @@ it's 60 epochs trained of 20 dimension latent space result.
 
 ## Fully Connected Uncondition GAN
 ![result gif](./my_GAN/Uncondition_GAN_eval_image/epoch_result.gif)
+
 traing result from epoch = 0->99
 
 ![result](./my_GAN/result.png)
+
 from result image
 
 1. mode collapsed
