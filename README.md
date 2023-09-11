@@ -3,12 +3,14 @@ It's a part of my indiv course about GAN
 
 ## Auto Encoder
 ![result](./My_first_VEA_model/AE_60epochs_20d-latent.png)
+
 it's 60 epochs trained of 20 dimension latent space result.
 - gray background
 - it's like s&p noise
 
 ## Variational Auto Encoder
 ![result](./My_first_VEA_model/AEV_60epochs_20d-latent.png)
+
 it's 60 epochs trained of 20 dimension latent space result.
 - more realistice
 - no s&p noise but blur instead
