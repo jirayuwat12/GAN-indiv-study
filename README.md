@@ -4,20 +4,22 @@ It's a part of my indiv course about GAN
 # Table of Contents
 - [Introduction](#introduction)
 - [Dataset](#dataset)
-    - [AJDATASET01](#ajdataset01)
-    - [AJDATASET02](#ajdataset02)
-    - [AJDATASET03M](#ajdataset03m)
+    1. [AJDATASET01](#ajdataset01)
+    1. [AJDATASET02](#ajdataset02)
+    1. [AJDATASET03M](#ajdataset03m)
 - [Environment](#environment)
 - [Experiment](#experiment)
+    1. [pure_data_same_model_as_BDD](#pure_data_same_model_as_bdd)
+    1. [augmented_ajdataset](#augmented_ajdataset)
+    1. [same_load_and_fine_size_better_resol](#same_load_and_fine_size_better_resol)
+    1. [medium_size_dataset_basic](#medium_size_dataset_basic)
+    1. [small_size_dataset_fine_tune_BDD100K](#small_size_dataset_fine_tune_bdd100k)
 - [Utilization in this repo](#utilization-in-this-repo)
-    - [Image extraction from video](#image-extraction-from-video)
+    1. [Image extraction from video](#image-extraction-from-video)
 - [Resources](#resources)
 
 
 # Introduction
-This repo is used to record my indiv study about GAN.
-The main goal is about **image transation** (from **day image** to **night image** and the other hand).
-In this project, I use [**AU-GAN**](#resources) to be the main model.
 
 # Dataset
 ## AJDATASET01
@@ -52,9 +54,9 @@ In this project, I use [**AU-GAN**](#resources) to be the main model.
     - extract every 2 second.
     > same location, different time
 - Total `3,090 images` 
-    - Train : `3700 images`
-        - Day : `1853 images`
-        - Night : `1847 images`
+    - Train : `3,700 images`
+        - Day : `1,853 images`
+        - Night : `1,847 images`
     - Test : `390 images`
         - Day : `190 images`
         - Night : `200 images`
@@ -66,7 +68,7 @@ This repo use the same environment as [**GAN-study**](#resources) repo.
 
 ## pure_data_same_model_as_BDD
 > Use the same model structure that used in BDD100k dataset to train `AJDATASET01`
-### setting
+### Setting
 ```bash
 python main.py --dataset_dir AJDATASET01 \  
                 --phase train \
@@ -86,8 +88,10 @@ python main.py --dataset_dir AJDATASET01 \
 - Dataset : [`AJDATASET01`](#ajdataset01)
 ### Result
 - example for *Night to Day*
+
     ![AtoB](./asset/pure_data_same_model_as_BDD/AtoB.jpg)
 - example for *Day to Night*
+
     ![BtoA](./asset/pure_data_same_model_as_BDD/BtoA.jpg)
 ### Analysis
 1. Night and Day image in dataset are too similar.
@@ -97,7 +101,7 @@ python main.py --dataset_dir AJDATASET01 \
 
 ## augmented_ajdataset
 > Use `AJDATASET02` which create from 2 videos in different time and location to train.
-### setting
+### Setting
 ```bash
 python main.py --dataset_dir AJDATASET02 \
                 --phase train \
@@ -117,8 +121,10 @@ python main.py --dataset_dir AJDATASET02 \
 - Dataset : [`AJDATASET02`](#ajdataset02)
 ### Result
 - example for *Night to Day*
+
     ![AtoB](./asset/augmented_ajdataset/AtoB.jpg)
 - example for *Day to Night*
+
     ![BtoA](./asset/augmented_ajdataset/BtoA.jpg)
 ### Analysis
 1. Can't use translated image to do anything.
@@ -129,7 +135,7 @@ python main.py --dataset_dir AJDATASET02 \
 
 ## same_load_and_fine_size_better_resol
 > Try to create translation on (512x256) resolution image.
-### setting
+### Setting
 ```bash
 python main.py --dataset_dir AJDATASET01 \
                 --phase train \
@@ -149,14 +155,62 @@ python main.py --dataset_dir AJDATASET01 \
 - Dataset : [`AJDATASET01`](#ajdataset01)
 ### Result
 - example for *Night to Day*
+
     ![AtoB](./asset/same_load_and_fine_size_better_resol/AtoB.jpg)
 - example for *Day to Night*
+
     ![BtoA](./asset/same_load_and_fine_size_better_resol/BtoA.jpg)
-###
+### Analysis
 1. The resolution is better than before.
     - Compare to [pure_data_same_model_as_BDD](#pure_data_same_model_as_bdd) experiment.
 1. With better resolution and the more close between **load size** and **fine size**.
     - The translation is better than before.
+
+## medium_size_dataset_basic
+> Another point of view([AJDATASET03M](#ajdataset03m)) to train the model.
+> The benefits is the dataset is bigger than before.
+### Setting
+```bash
+python main.py --dataset_dir AJDATASET03M \
+                --phase train \
+                --experiment_name medium_size_dataset_basic \
+                --batch_size 1 \
+                --load_size 286 \
+                --fine_size 256 \
+                --epoch 20 \
+                --use_uncertainty True \
+                --lr 0.00007
+```
+- Batch size : `1`
+- Load size : `286`
+- Fine size : `256`
+- Epoch : `20`
+- Use uncertainty : `True`
+- Learning rate : `0.00007`
+- Dataset : [`AJDATASET03M`](#ajdataset03m)
+### Result
+- example for *Night to Day*
+
+    ![AtoB](./asset/medium_size_dataset_basic/AtoB.jpg)
+- example for *Day to Night*
+
+    ![BtoA](./asset/medium_size_dataset_basic/BtoA.jpg)
+
+### Analysis
+
+## small_size_dataset_fine_tune_BDD100K
+> Try to fix about small dataset problem by fine tune the model that trained by BDD100K dataset.
+### Setting
+### Result
+- example for *Night to Day*
+
+    ![AtoB](./asset/small_size_dataset_fine_tune_BDD100K/AtoB.jpg)
+
+- example for *Day to Night*
+
+    ![BtoA](./asset/small_size_dataset_fine_tune_BDD100K/BtoA.jpg)
+
+### Analysis
 
 
 # Utilization in this repo
