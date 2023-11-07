@@ -8,7 +8,7 @@ It's a part of my indiv course about GAN
     - [AJDATASET02](#ajdataset02)
     - [AJDATASET03M](#ajdataset03m)
 - [Environment](#environment)
-- [Experiment]
+- [Experiment](#experiment)
 - [Utilization in this repo](#utilization-in-this-repo)
     - [Image extraction from video](#image-extraction-from-video)
 - [Resources](#resources)
@@ -64,6 +64,101 @@ This repo use the same environment as [**GAN-study**](#resources) repo.
 
 # Experiment
 
+## pure_data_same_model_as_BDD
+> Use the same model structure that used in BDD100k dataset to train `AJDATASET01`
+### setting
+```bash
+python main.py --dataset_dir AJDATASET01 \  
+                --phase train \
+                --experiment_name pure_data_same_model_as_BDD \
+                --batch_size 2  \
+                --load_size 286 \
+                --fine_size 128 \
+                --epoch 30 \
+                --use_uncertainty True
+```
+- Batch size : `2`
+- Load size : `286`
+- Fine size : `128`
+- Epoch : `30`
+- Use uncertainty : `True`
+- Learning rate : `0.0002`
+- Dataset : [`AJDATASET01`](#ajdataset01)
+### Result
+- example for *Night to Day*
+    ![AtoB](./asset/pure_data_same_model_as_BDD/AtoB.jpg)
+- example for *Day to Night*
+    ![BtoA](./asset/pure_data_same_model_as_BDD/BtoA.jpg)
+### Analysis
+1. Night and Day image in dataset are too similar.
+    - e.g. In the both day and night image, every car has the light on 
+    - This make the translated image very similar to the original image.
+1. The resolution of model is very low (256x128) so might not able to count the car.
+
+## augmented_ajdataset
+> Use `AJDATASET02` which create from 2 videos in different time and location to train.
+### setting
+```bash
+python main.py --dataset_dir AJDATASET02 \
+                --phase train \
+                --experiment_name augmented_ajdataset \
+                --batch_size 2  \
+                --load_size 286 \
+                --fine_size 128 \
+                --epoch 30 \
+                --use_uncertainty True \
+```
+- Batch size : `2`
+- Load size : `286`
+- Fine size : `128`
+- Epoch : `30`
+- Use uncertainty : `True`
+- Learning rate : `0.0002`
+- Dataset : [`AJDATASET02`](#ajdataset02)
+### Result
+- example for *Night to Day*
+    ![AtoB](./asset/augmented_ajdataset/AtoB.jpg)
+- example for *Day to Night*
+    ![BtoA](./asset/augmented_ajdataset/BtoA.jpg)
+### Analysis
+1. Can't use translated image to do anything.
+    - The previous infomation such as car, road, etc. are gone.
+    - This may cause by **load size** and **fine size** are too different.
+1. Maybe **learning rate** are not relate with **new batch-size**
+    - According to [this paper](https://arxiv.org/abs/1404.5997), if we multiply the batch size by k, we multiply the learning rate by square root of k as well.
+
+## same_load_and_fine_size_better_resol
+> Try to create translation on (512x256) resolution image.
+### setting
+```bash
+python main.py --dataset_dir AJDATASET01 \
+                --phase train \
+                --experiment_name same_load_and_fine_size_better_resol \
+                --batch_size 1 \
+                --load_size 286 \
+                --fine_size 256 \
+                --epoch 20 \
+                --use_uncertainty True \
+```
+- Batch size : `1`
+- Load size : `286`
+- Fine size : `256`
+- Epoch : `20`
+- Use uncertainty : `True`
+- Learning rate : `0.0002`
+- Dataset : [`AJDATASET01`](#ajdataset01)
+### Result
+- example for *Night to Day*
+    ![AtoB](./asset/same_load_and_fine_size_better_resol/AtoB.jpg)
+- example for *Day to Night*
+    ![BtoA](./asset/same_load_and_fine_size_better_resol/BtoA.jpg)
+###
+1. The resolution is better than before.
+    - Compare to [pure_data_same_model_as_BDD](#pure_data_same_model_as_bdd) experiment.
+1. With better resolution and the more close between **load size** and **fine size**.
+    - The translation is better than before.
+
+
 # Utilization in this repo
 ## Image extraction from video
 This use to extract images from video and save it to the folder. 
@@ -94,7 +189,8 @@ python image_extractor.py --clip_path E:/indiv_vdo/2021_0610_194042_002.MOV --im
 ## Resources
 
 1. AU-GAN
-    - 
+    - Official implementation : [Github](https://github.com/jgkwak95/AU-GAN)
+    - Paper : [pdf here](https://www.bmvc2021-virtualconference.com/assets/papers/1443.pdf)
 1. DCGANs -- [pdf here](https://arxiv.org/pdf/1511.06434.pdf)
 1. WGANs -- [pdf here](https://arxiv.org/pdf/1701.07875.pdf)
 1. Improved Training of Wasserstein GANs -- [pdf here](https://arxiv.org/pdf/1704.00028.pdf)
