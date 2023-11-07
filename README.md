@@ -8,6 +8,7 @@ It's a part of my indiv course about GAN
     - [AJDATASET02](#ajdataset02)
     - [AJDATASET03M](#ajdataset03m)
 - [Environment](#environment)
+- [Experiment]
 - [Utilization in this repo](#utilization-in-this-repo)
     - [Image extraction from video](#image-extraction-from-video)
 - [Resources](#resources)
@@ -20,7 +21,8 @@ In this project, I use [**AU-GAN**](#resources) to be the main model.
 
 # Dataset
 ## AJDATASET01
-- Only from 1 video (**2021_0607_184742_013.MOV**)
+- Only from 1 video (**2021_0607_184742_013.MOV**) 
+    - extract every 10 second.
 - Total `264 images`
     - Train : `236 images`
         - Day : `67 images`
@@ -33,6 +35,7 @@ In this project, I use [**AU-GAN**](#resources) to be the main model.
 - Original video
     1. `2021_0607_184742_013.MOV`
     1. `Top.MOV`
+    - extract every 10 second
     > different location
 - Total `390 images`
     - Train : `300 images`
@@ -46,10 +49,20 @@ In this project, I use [**AU-GAN**](#resources) to be the main model.
 - Original video
     1. `2021_0610_194042_002.MOV` (Night video)
     1. `2021_0610_135731_008.MOV` (Day video)
+    - extract every 2 second.
     > same location, different time
+- Total `3,090 images` 
+    - Train : `3700 images`
+        - Day : `1853 images`
+        - Night : `1847 images`
+    - Test : `390 images`
+        - Day : `190 images`
+        - Night : `200 images`
 
 # Environment
 This repo use the same environment as [**GAN-study**](#resources) repo.
+
+# Experiment
 
 # Utilization in this repo
 ## Image extraction from video
