@@ -22,7 +22,7 @@ It's a part of my indiv course about GAN
 
 
 # Introduction
-
+TODO
 # Dataset
 ## AJDATASET01
 - Only from 1 video (**2021_0607_184742_013.MOV**) 
@@ -67,8 +67,9 @@ It's a part of my indiv course about GAN
 # Environment
 This repo use the same environment as [**GAN-study**](#resources) repo.
 
+TODO - breifly explain
 # Experiment
-
+> **FYI** : This part is my logs of my exploration feel free to skip this and read [Conclusion part](#conclusion-from-above-experiments)
 ## pure_data_same_model_as_BDD
 > Use the same model structure that used in BDD100k dataset to train `AJDATASET01`
 ### Setting
@@ -217,13 +218,14 @@ python main.py --dataset_dir AJDATASET03M \
 
 # Conclusion from above experiments
 ## Load size and fine size in train phase
-$$|\text{Load size} - \text{Fine size} | \le 30$$
+$$\text{Load size} - \text{Fine size}  \text{ be small value e.g. 30 and non-negative }$$
 According to the original implementation in the train process, The model will load image as (`Load size x 2`, `Load size`) pixel then crop image size (`Fine size x 2`, `Fine size`) and **random position** to be train image.
 Thus, if Load size and Fine size is very different the model might not learn from the correct image pair.
 ## Learning rate and Batch size relationship
 From [Krizhevsky. One weird trick for parallelizing convolutional neural networks](https://arxiv.org/abs/1404.5997), If we multiply batch size with $K$, we must multiply learning rate with $\sqrt{K}$ to keep the variance in the gradient expectation constant.
 # Final model and result
 > The trained weight is on [Google drive]()
+TODO
 
 # Utilization in this repo
 ## Image extraction from video
@@ -249,8 +251,6 @@ python image_extractor.py --clip_path E:/indiv_vdo/2021_0610_194042_002.MOV --im
  -->
 
 1. [image_extractor.ipynb](./Indiv_image/image_extractor.ipynb) is used to extract images from video. as jupyter notebook
-
-
 
 ## Resources
 
