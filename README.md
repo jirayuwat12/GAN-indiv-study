@@ -260,4 +260,4 @@ python image_extractor.py --clip_path E:/indiv_vdo/2021_0610_194042_002.MOV --im
 1. DCGANs -- [pdf here](https://arxiv.org/pdf/1511.06434.pdf)
 1. WGANs -- [pdf here](https://arxiv.org/pdf/1701.07875.pdf)
 1. Improved Training of Wasserstein GANs -- [pdf here](https://arxiv.org/pdf/1704.00028.pdf)
-1. [Krizhevsky. One weird trick for parallelizing convolutional neural networks](https://arxiv.org/abs/1404.5997)
+1. Krizhevsky. One weird trick for parallelizing convolutional neural networks -- [pdf here](https://arxiv.org/abs/1404.5997)
