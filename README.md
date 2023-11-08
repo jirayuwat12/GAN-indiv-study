@@ -53,7 +53,7 @@ It's a part of my indiv course about GAN
     1. `2021_0610_135731_008.MOV` (Day video)
     - extract every 2 second.
     > same location, different time
-- Total `3,090 images` 
+- Total `4,090 images` 
     - Train : `3,700 images`
         - Day : `1,853 images`
         - Night : `1,847 images`
@@ -177,14 +177,14 @@ python main.py --dataset_dir AJDATASET03M \
                 --batch_size 1 \
                 --load_size 286 \
                 --fine_size 256 \
-                --epoch 20 \
+                --epoch 5 \
                 --use_uncertainty True \
                 --lr 0.00007
 ```
 - Batch size : `1`
 - Load size : `286`
 - Fine size : `256`
-- Epoch : `20`
+- Epoch : `5`
 - Use uncertainty : `True`
 - Learning rate : `0.00007`
 - Dataset : [`AJDATASET03M`](#ajdataset03m)
