@@ -14,6 +14,8 @@ It's a part of my indiv course about GAN
     1. [same_load_and_fine_size_better_resol](#same_load_and_fine_size_better_resol)
     1. [medium_size_dataset_basic](#medium_size_dataset_basic)
     1. [small_size_dataset_fine_tune_BDD100K](#small_size_dataset_fine_tune_bdd100k)
+- [Conclusion from above experiment](#conclusion-from-above-experiments)
+- [Final model and result](#final-model-and-result)
 - [Utilization in this repo](#utilization-in-this-repo)
     1. [Image extraction from video](#image-extraction-from-video)
 - [Resources](#resources)
@@ -48,6 +50,7 @@ It's a part of my indiv course about GAN
         - Night : `40 images`
 
 ## AJDATASET03M
+> **M** is stand for medium.
 - Original video
     1. `2021_0610_194042_002.MOV` (Night video)
     1. `2021_0610_135731_008.MOV` (Day video)
@@ -131,7 +134,7 @@ python main.py --dataset_dir AJDATASET02 \
     - The previous infomation such as car, road, etc. are gone.
     - This may cause by **load size** and **fine size** are too different.
 1. Maybe **learning rate** are not relate with **new batch-size**
-    - According to [this paper](https://arxiv.org/abs/1404.5997), if we multiply the batch size by k, we multiply the learning rate by square root of k as well.
+    - According to [Krizhevsky. One weird trick for parallelizing convolutional neural networks](https://arxiv.org/abs/1404.5997), if we multiply the batch size by k, we multiply the learning rate by square root of k as well.
 
 ## same_load_and_fine_size_better_resol
 > Try to create translation on (512x256) resolution image.
@@ -212,6 +215,15 @@ python main.py --dataset_dir AJDATASET03M \
 
 ### Analysis
 
+# Conclusion from above experiments
+## Load size and fine size in train phase
+$$|\text{Load size} - \text{Fine size} | \le 30$$
+According to the original implementation in the train process, The model will load image as (`Load size x 2`, `Load size`) pixel then crop image size (`Fine size x 2`, `Fine size`) and **random position** to be train image.
+Thus, if Load size and Fine size is very different the model might not learn from the correct image pair.
+## Learning rate and Batch size relationship
+From [Krizhevsky. One weird trick for parallelizing convolutional neural networks](https://arxiv.org/abs/1404.5997), If we multiply batch size with $K$, we must multiply learning rate with $\sqrt{K}$ to keep the variance in the gradient expectation constant.
+# Final model and result
+> The trained weight is on [Google drive]()
 
 # Utilization in this repo
 ## Image extraction from video
@@ -248,3 +260,4 @@ python image_extractor.py --clip_path E:/indiv_vdo/2021_0610_194042_002.MOV --im
 1. DCGANs -- [pdf here](https://arxiv.org/pdf/1511.06434.pdf)
 1. WGANs -- [pdf here](https://arxiv.org/pdf/1701.07875.pdf)
 1. Improved Training of Wasserstein GANs -- [pdf here](https://arxiv.org/pdf/1704.00028.pdf)
+1. [Krizhevsky. One weird trick for parallelizing convolutional neural networks](https://arxiv.org/abs/1404.5997)
